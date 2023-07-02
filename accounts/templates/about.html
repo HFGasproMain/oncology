@@ -1,0 +1,35 @@
+
+{% load static %}
+{% include 'base.html' %}
+{% block content %}
+
+<!-- Preloader -->
+    <section id="container-fluid" class="error-page">
+        <div class="error-box">
+            <div class="error-body text-center">
+                <h2 class="text-danger">ABOUT TOES</h2> <hr>
+                 <p class=" m-t-30 m-b-30">
+
+                 Welcome to the Ontology-Based Expert System for Cancer! Our system is designed to provide comprehensive information and expert guidance related to cancer diagnosis, treatment, and management. By leveraging the power of ontologies, we aim to enhance the accuracy and effectiveness of cancer-related decision-making processes.
+             	 </p>
+
+               <div class="card">
+                  <div class="card-header">
+                   <b style="color:black;">Welcome <img src="{% static 'plugins/images/hello.jpeg' %}" alt="user-img" width="36" class="img-circle"></b>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                     At its core, our expert system utilizes an ontology—a structured representation of knowledge—to capture and organize information about various aspects of cancer. This includes details about different types of cancer, their symptoms,   causes and  treatment recommendations.
+                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  </div>
+                </div>
+
+        
+            
+                <hr>
+          </div>
+            <footer class="footer text-center">2023 © TOES.</footer>
+        </div>
+    </section>
+
+{% endblock content %}

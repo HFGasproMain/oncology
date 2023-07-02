@@ -1,0 +1,1 @@
+web: gunicorn oncology_expert_system.wsgi --log-file -

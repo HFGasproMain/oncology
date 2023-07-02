@@ -1,0 +1,103 @@
+{% load static %}
+{% include 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div id="wrapper">
+        
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav slimscrollsidebar">
+                <div class="sidebar-head">
+                    <h3>
+                        <img src="{% static 'plugins/images/logo.jpeg' %}" style="height:40px; width:60px; " alt="logo" class="img-circle" /> 
+                        <span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">TOES</span>
+                    </h3>
+                </div>
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 70px 0 0;">
+                        <a href="{% url 'patient_dashboard' %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'start-diagnosis' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Diagnosis</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'test-results' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Test Results</a>
+                    </li>
+                    <!-- <li>
+                        <a href="#" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Doctors</a>
+                    </li> -->
+                </ul>
+                <div class="center p-20">
+                     <a href="{% url 'logout' %}" target="" class="btn btn-danger btn-block waves-effect waves-light">Logout</a>
+                 </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Page Content --> 
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Symptoms page</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                            <li class="active">Get Symptoms</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row">
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Select possible symptoms you have experienced</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+
+                <!-- Pagination -->
+                <div class="col-md-12">
+                    <div class="pagination">
+                        {% if symptoms.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ symptoms.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                        {% for num in symptoms.paginator.page_range %}
+                            {% if num == symptoms.number %}
+                                <span class="page-current">{{ num }}</span>
+                            {% else %}
+                                <a href="?page={{ num }}">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if symptoms.has_next %}
+                            <a href="?page={{ symptoms.next_page_number }}">Next</a>
+                            <a href="?page={{ symptoms.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- End Pagination -->
+
+                    
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+{% endblock content %}

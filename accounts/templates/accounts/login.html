@@ -1,0 +1,28 @@
+{% load static %}
+{% include 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<section id="container-fluid" class="error-page"> <br>
+    	<div class="col-lg-3"></div>
+        <div class="col-lg-6" style="margin: auto;">
+		    <h1>Login</h1>
+		    <form method="POST">
+		        {% csrf_token %}
+				<!-- {{ form|crispy }} -->
+		        
+		        <label for="username">Username:</label>
+		        <input class="form-control" type="text" name="username" id="username" required><br><br>
+		        
+		        <label for="password">Password:</label>
+		        <input class="form-control" type="password" name="password" id="password" required><br><br>
+		        
+		        <input type="submit" class="btn btn-success" value="Login">
+		    </form>
+		</div>
+		<div class="col-lg-3"></div>
+</section>
+
+
+{% endblock  %}

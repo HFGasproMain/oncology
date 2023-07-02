@@ -1,0 +1,26 @@
+{% load static %}
+{% include 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- Preloader -->
+    <section id="container-fluid" class="error-page"> <br>
+    	<div class="col-lg-3"></div>
+        	<div class="col-lg-6" style="margin: auto;">
+        	 <form method="POST">
+				<legend>Please fill in all details correctly!</legend>
+				{% csrf_token %}
+				{{ form|crispy }}
+				<hr>
+				<input type="submit" style="width: 100%;" class="btn btn-success" value="Sign Up" name="">
+				<br><br>
+				<span>Already have an account?</span> 
+				<a href="{% url 'login' %}" class="btn btn-success">Login</a> <br><hr>
+			    <!-- <input type="submit" style="width: 100%;" class="btn btn-success" value="Login" name="">  -->
+			</form> 
+			</div>
+        <div class="col-lg-3"></div> 
+       
+    </section>
+{% endblock  %}

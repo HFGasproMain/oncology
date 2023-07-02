@@ -1,0 +1,32 @@
+{% load static %}
+{% include 'base.html' %}
+{% block content %}
+
+<!-- Preloader -->
+    <section id="container-fluid" class="error-page">
+        <div class="error-box">
+            <div class="error-body text-center">
+                <h2 class="text-danger">WELCOME TO THE ONCOLOGY EXPERT SYSTEM (TOES)</h2> <hr>
+                 <p class=" m-t-30 m-b-30">Oncology is a branch of medicine that deals with the study, treatment, diagnosis and prevention of tumors.</p>
+
+               <div class="card">
+                  <div class="card-header">
+                   <b style="color:black;">Hello! <img src="{% static 'plugins/images/hello.jpeg' %}" alt="user-img" width="36" class="img-circle"></b>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                     My name is toes. I am an expert system designed to mimic the problem-solving abilities of a human expert in oncology. <br> You can count on me as I've been trained with the best performing models by oncology experts.</p>
+                    <a href="{% url 'login' %}" class="btn btn-danger btn-rounded waves-effect waves-light m-b-40">Begin Diagnosis</a>
+                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  </div>
+                </div>
+
+        
+            
+                <hr>
+          </div>
+            <footer class="footer text-center">2023 © TOES.</footer>
+        </div>
+    </section>
+
+{% endblock content %}

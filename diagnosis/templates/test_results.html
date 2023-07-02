@@ -1,0 +1,102 @@
+{% load static %}
+{% include 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div id="wrapper">
+        
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav slimscrollsidebar">
+                <div class="sidebar-head">
+                    <h3>
+                        <img src="{% static 'plugins/images/logo.jpeg' %}" style="height:40px; width:60px; " alt="logo" class="img-circle" /> 
+                        <span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">TOES</span>
+                    </h3>
+                </div>
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 70px 0 0;">
+                        <a href="{% url 'patient_dashboard' %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'start-diagnosis' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Diagnosis</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'test-results' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Test Results</a>
+                    </li>
+                </ul>
+                <div class="center p-20">
+                     <a href="{% url 'logout' %}" target="" class="btn btn-danger btn-block waves-effect waves-light">Logout</a>
+                 </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Diagnosis page</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                            <li class="active">View Diagnosis</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row">
+
+					<h1>Test Results</h1>
+
+					  <table class="table table-bordered table-striped table-hover mt-4">
+					    <thead class="thead-dark">
+					      <tr>
+					        <th>Patient</th>
+					        <th>Cancer Type</th>
+					        <th>Diagnosis</th>
+					        <th>Diagnosis Accuracy</th>
+					        <th>Date</th>
+					        <th>Actions</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      {% for test_result in test_results %}
+					        <tr>
+					          <td>{{ test_result.patient }}</td>
+					          <td>{{ test_result.name }}</td>
+					          <td>{{ test_result.diagnosis_report }}</td>
+					          <td>{{ test_result.accuracy }}</td>
+					          <td>{{ test_result.saved_at }}</td>
+					          <td>
+								<a href="{% url 'read_diagnosis' test_result.id %}" class="btn btn-primary">
+								Read Diagnosis</a>
+					          </td>
+					        </tr>
+					      {% empty %}
+					        <tr>
+					          <td colspan="3">No test results found.</td>
+					        </tr>
+					      {% endfor %}
+					    </tbody>
+					  </table>
+                    
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+{% endblock content %}
+
+
+
