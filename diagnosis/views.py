@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from .models import CancerType, Symptom, Treatment, TestResult, Patients
 from .utils import calculate_accuracy
 from .forms import SymptomForm
-import pyttsx3
+#import pyttsx3
 from gtts import gTTS
 from django.http import FileResponse
 import os
@@ -136,21 +136,6 @@ def read_diagnosis(request, pk):
     response['Content-Disposition'] = 'attachment; filename="diagnosis.mp3"'
     return response
 
-
-def read_diagnosiss(request, pk):
-    test_result = TestResult.objects.get(id=pk)
-    diagnosis = test_result.diagnosis_report
-    
-    # Initialize the pyttsx3 engine
-    engine = pyttsx3.init()
-    engine.save_to_file(diagnosis, 'diagnosis.mp3')
-    engine.runAndWait()
-
-    # Return the MP3 file as the response
-    with open('diagnosis.mp3', 'rb') as file:
-        response = HttpResponse(file.read(), content_type='audio/mpeg')
-        response['Content-Disposition'] = 'attachment; filename="diagnosis.mp3"'
-        return response
 
 @login_required
 def cancer_types(request):
