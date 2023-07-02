@@ -82,11 +82,6 @@ def user_login(request):
 def doctor_dashboard(request):
     # Retrieve the authenticated doctor user
     doctor = request.user
-
-    # Fetch relevant data for the doctor's dashboard
-    # Example: Retrieve patients assigned to the doctor
-    #patients = doctor.patients.all()
-
     context = {
         'doctor': doctor,
         #'patients': patients,
@@ -99,11 +94,6 @@ def doctor_dashboard(request):
 @login_required
 def patient_dashboard(request):
     patient = request.user
-
-    # Fetch relevant data for the doctor's dashboard
-    # Example: Retrieve patients assigned to the doctor
-    #patients = doctor.patients.all()
-
     context = {
         'patient': patient,
         #'patients': patients,
