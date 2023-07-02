@@ -123,6 +123,13 @@ USE_I18N = True
 USE_TZ = True
 
 
+CORS_ORIGIN_WHITELIST = [
+    'https://oncology-system.up.railway.app',
+    # Other trusted origins
+]
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
