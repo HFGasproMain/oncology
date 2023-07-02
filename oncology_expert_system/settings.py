@@ -78,7 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "oncology_expert_system.wsgi.application"
 
 
-CORS_ORIGIN_WHITELIST = [
+CORS_ALLOWED_ORIGINSNS = [
     'https://oncology-system.up.railway.app',
     # Other trusted origins
 ]
