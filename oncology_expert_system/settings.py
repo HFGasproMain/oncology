@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-!5d&s+5m!&6t8bt79f=690o+gt=6mstnkn7hv118oag=0sf+yl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'oncology-system.up.railway.app']
+ALLOWED_HOSTS = ['oncology-system.up.railway.app']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'diagnosis',
     'crispy_bootstrap4',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "oncology_expert_system.wsgi.application"
+
+
+CORS_ORIGIN_WHITELIST = [
+    'https://oncology-system.up.railway.app',
+    # Other trusted origins
+]
 
 
 # Database
@@ -122,11 +129,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-CORS_ORIGIN_WHITELIST = [
-    'https://oncology-system.up.railway.app',
-    # Other trusted origins
-]
 
 
 
