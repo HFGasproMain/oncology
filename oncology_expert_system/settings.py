@@ -47,11 +47,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware', 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -78,10 +78,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "oncology_expert_system.wsgi.application"
 
 
-CORS_ALLOWED_ORIGINSNS = [
+CORS_ALLOWED_ORIGINS = [
     'https://oncology-system.up.railway.app',
     # Other trusted origins
 ]
+
 
 
 # Database
