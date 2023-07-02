@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-!5d&s+5m!&6t8bt79f=690o+gt=6mstnkn7hv118oag=0sf+yl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['oncology-system.up.railway.app']
+ALLOWED_HOSTS = ['*', 'oncology-system.up.railway.app']
 
 
 # Application definition
@@ -47,8 +47,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware', 
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -80,9 +80,12 @@ WSGI_APPLICATION = "oncology_expert_system.wsgi.application"
 
 CORS_ALLOWED_ORIGINS = [
     'https://oncology-system.up.railway.app',
+    'http://oncology-system.up.railway.app',
     # Other trusted origins
 ]
 
+
+CSRF_TRUSTED_ORIGINS = ['https://oncology-system.up.railway.app']
 
 
 # Database
