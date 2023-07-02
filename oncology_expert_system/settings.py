@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-!5d&s+5m!&6t8bt79f=690o+gt=6mstnkn7hv118oag=0sf+yl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'oncology-system.up.railway.app']
 
 
 # Application definition
