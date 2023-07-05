@@ -1,0 +1,132 @@
+{% load static %}
+{% include 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div id="wrapper">
+        
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav slimscrollsidebar">
+                <div class="sidebar-head">
+                    <h3>
+                        <img src="{% static 'plugins/images/logo.jpeg' %}" style="height:40px; width:60px; " alt="logo" class="img-circle" /> 
+                        <span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">TOES</span>
+                    </h3>
+                </div>
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 70px 0 0;">
+                        <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'add_cancer_type' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Enter Cancer Type</a>
+                    </li>
+                
+                    <li>
+                        <a href="{% url 'add_symptom' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Enter Symptom</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'view_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>View Patients Medical Records</a>  
+                    </li>
+                    <li>
+                        <a href="{% url 'patient_questions' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Patients Questions</a>
+                    </li>
+
+                </ul>
+                <div class="center p-20">
+                     <a href="{% url 'logout' %}" target="" class="btn btn-danger btn-block waves-effect waves-light">Logout</a>
+                 </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Page Content --> 
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Medical records page</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                            <li class="active">Add Medical History</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row">
+                <div class="col-2"></div>
+                <h2>Medical History Records</h2>
+                    <table class="table table-bordered" style="background-color: #f2f2f;">
+                        <thead>
+                          <tr>
+                            <th>Patient</th>
+                            <th>Condition</th>
+                            <th>Record date</th>
+                            <th>Description</th>
+                            <th>Date registered</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for record in medical_history %}
+                          <tr>
+                            <td>
+                              <img src="{{ record.patient.photo.url }}" alt="Patient Photo" width="35px" height="35px" class="img-thumbnail">
+                              {{ record.patient.first_name }} {{ record.patient.last_name }}
+                            </td>
+                            <td>{{ record.condition }}</td>
+                            <td>
+                              {{ record.record_date }}
+                            </td>
+                            <td>
+                              {{ record.description }}
+                            </td>
+                            <td>                                    
+                                {{ record.date_created }}
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+
+                <!-- Pagination -->
+                
+                    <div class="pagination">
+                        {% if symptoms.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ symptoms.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                        {% for num in symptoms.paginator.page_range %}
+                            {% if num == symptoms.number %}
+                                <span class="page-current">{{ num }}</span>
+                            {% else %}
+                                <a href="?page={{ num }}">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if symptoms.has_next %}
+                            <a href="?page={{ symptoms.next_page_number }}">Next</a>
+                            <a href="?page={{ symptoms.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- End Pagination -->
+
+                    
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+{% endblock content %}

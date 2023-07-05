@@ -1,0 +1,104 @@
+{% load static %}
+{% include 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div id="wrapper">
+        
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav slimscrollsidebar">
+                <div class="sidebar-head">
+                    <h3>
+                        <img src="{% static 'plugins/images/logo.jpeg' %}" style="height:40px; width:60px; " alt="logo" class="img-circle" /> 
+                        <span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">TOES</span>
+                    </h3>
+                </div>
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 70px 0 0;">
+                        <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'add_cancer_type' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i> New Cancer Type</a>
+                    </li>
+                
+                    <li>
+                        <a href="{% url 'add_symptom' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>New Symptom</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'add_treatment' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Add Treatments</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'view_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>View Patients Medical Records</a>  
+                    </li>
+                     <li>
+                        <a href="{% url 'patient_questions' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Patients Questions</a>
+                    </li>
+                
+                </ul>
+                <div class="center p-20">
+                     <a href="{% url 'logout' %}" target="" class="btn btn-danger btn-block waves-effect waves-light">Logout</a>
+                 </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Profile page</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                            <li class="active">Profile Page</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <div class="white-box">
+                            <div class="user-bg"> 
+                                <div class="overlay-box">
+                                    <div class="user-content">
+                                        <a href="#"><img src="{{ user.photo.url }}" class="thumb-lg img-circle" alt="img"></a>
+                                        <h4 class="text-white">{{ user}}</h4>
+                                        <h5 class="text-white">{{ user.email }}</h5> </div>
+                                </div>
+                            </div>
+                            <div class="user-btm-box">
+                                <div class="col-md-12 col-sm-4 text-center">
+                                    <p class="text-purple"><i class="ti-facebook"></i></p>
+                                    <h2>Designation: {{ user.user_type }}</h2> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <div class="white-box">
+                        	 <h1>Add Cancer Type</h1>
+							  <form method="post" class="form-horizontal form-material">
+							    {% csrf_token %}
+							    {{ form|crispy }}
+							    <button type="submit" class="btn btn-success">Submit</button>
+							  </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+{% endblock content %}

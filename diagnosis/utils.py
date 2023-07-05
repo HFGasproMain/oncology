@@ -7,3 +7,11 @@ def calculate_accuracy(selected_symptoms, cancer_type):
     print(f'total symptoms for that cancer => {total_symptoms}, count2 ({count2})')
     accuracy = len(matched_symptoms) / len(total_symptoms) * 100
     return accuracy
+
+
+def is_doctor(user):
+    return user.user_type == 'doctor'
+
+
+def is_patient(user):
+    return user.user_type == 'patient'

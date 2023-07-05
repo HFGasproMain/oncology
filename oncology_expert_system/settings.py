@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'accounts',
     'diagnosis',
+    'medical_records',
     'crispy_bootstrap4',
     'corsheaders',
 ]

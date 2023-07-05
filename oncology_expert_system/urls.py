@@ -25,6 +25,7 @@ urlpatterns = [
     path('home/', include('accounts.urls')),
     path('', index, name='index'),
     path('dashboard/', include('diagnosis.urls')),
+    path('confidential/', include('medical_records.urls')),
 
 ]
 if settings.DEBUG:

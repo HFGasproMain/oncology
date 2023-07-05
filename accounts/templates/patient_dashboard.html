@@ -16,7 +16,7 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;">
-                        <a href="{% url 'patient_dashboard' %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
+                        <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>
                     <li>
                         <a href="{% url 'start-diagnosis' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Begin diagnosis</a>
@@ -24,6 +24,15 @@
                 
                     <li>
                         <a href="{% url 'test-results' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Test Results</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'add_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Add medical records</a> 
+                    </li>
+                    <li>
+                        <a href="{% url 'ask_question' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Ask a question</a>  
+                    </li>
+                    <li>
+                        <a href="{% url 'my_questions' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>My Questions</a>
                     </li>
                 </ul>
                 <div class="center p-20">
@@ -65,7 +74,7 @@
                             <div class="user-btm-box">
                                 <div class="col-md-12 col-sm-4 text-center">
                                     <p class="text-purple"><i class="ti-facebook"></i></p>
-                                    <h2>{{ user.user_type }}</h2> 
+                                    <h2>Designation: {{ user.user_type }}</h2> 
                                 </div>
                             </div>
                         </div>
@@ -114,7 +123,7 @@
                                 </div> -->
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-success">Update Profile</button>
+                                        <a href="{% url 'update_profile' %}" class="btn btn-success">Click To Update Profile</a>
                                     </div>
                                 </div>
                             </form>
@@ -122,6 +131,42 @@
                     </div>
                 </div>
                 <!-- /.row -->
+                <hr>
+                <!-- Medical history -->
+                <div class="row">
+                    <h2>Your Medical Records</h2>
+                    <table class="table table-bordered white-box" style="background-color: #f2f2f;">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Condition</th>
+                            <th>Record date</th>
+                            <th>Description</th>
+                            <th>Date registered</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for record in medical_records %}
+                          <tr>
+                            <td>
+                              <img src="{{ record.patient.photo.url }}" alt="Patient Photo" width="35px" height="35px" class="img-thumbnail">
+                              {{ record.patient.first_name }} {{ record.patient.last_name }}
+                            </td>
+                            <td>{{ record.condition }}</td>
+                            <td>
+                              {{ record.record_date }}
+                            </td>
+                            <td>
+                              {{ record.description }}
+                            </td>
+                            <td>                                    
+                                {{ record.date_created }}
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- /.container-fluid -->
             

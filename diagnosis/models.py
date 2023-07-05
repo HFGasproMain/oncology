@@ -20,6 +20,9 @@ class Symptom(models.Model):
     def __str__(self):
     	return self.name
 
+    class Meta:
+        ordering = ['-id']
+
 class Treatment(models.Model):
     name = models.CharField(max_length=100)
     cancer_types = models.ManyToManyField(CancerType)
@@ -31,7 +34,6 @@ class Treatment(models.Model):
 class Patients(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	symptoms = models.ManyToManyField(Symptom)
-	#test_results = models.ManyToManyField(TestResult)
 
 	def __str__(self):
 		return '{},{}'.format(self.user, self.test_results)

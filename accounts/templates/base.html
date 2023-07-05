@@ -18,6 +18,7 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <!-- color CSS -->
     <link href="{% static 'css/colors/default.css' %}" id="theme" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -50,7 +51,7 @@
                     </li> -->
                      <li>
                         <a style="margin-top: -50px" class="profile-pic" href="#"> 
-                            <img src="{{ user.photo.url }}" alt="user" width="36" class="img-circle"><b class="hidden-xs">
+                            <img src="{{ user.photo.url }}" alt="user" width="36" height="36"  class="img-circle"><b class="hidden-xs">
                             {{ user.username }}</b></a>
                     </li>
                     {% else %}
@@ -61,7 +62,6 @@
                 </ul>
             </div>
         </nav>
-
   {% block content %}
     
 
@@ -70,5 +70,7 @@
     <script src="{% static 'plugins/bower_components/jquery/dist/jquery.min.js' %}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+   
 </body>
 </html>

@@ -16,13 +16,22 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;">
-                        <a href="{% url 'patient_dashboard' %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
+                        <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>
                     <li>
                         <a href="{% url 'start-diagnosis' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Diagnosis</a>
                     </li>
                     <li>
                         <a href="{% url 'test-results' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Test Results</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'add_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Add medical records</a> 
+                    </li>
+                    <li>
+                        <a href="{% url 'ask_question' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Ask a question</a>  
+                    </li>
+                    <li>
+                        <a href="{% url 'my_questions' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>My Questions</a>
                     </li>
                     <!-- <li>
                         <a href="#" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Doctors</a>

@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib.auth import login, authenticate
-from .forms import DoctorRegistrationForm, PatientRegistrationForm
-from django.contrib.auth.decorators import login_required
+from .forms import DoctorRegistrationForm, PatientRegistrationForm, UserProfileForm
+from django.contrib.auth.decorators import login_required, user_passes_test
+from diagnosis.utils import is_patient, is_doctor
+from medical_records.models import MedicalHistory
 
 # All views here
 def index(request):
@@ -79,6 +81,7 @@ def user_login(request):
 
 
 @login_required
+@user_passes_test(is_doctor, login_url='login')
 def doctor_dashboard(request):
     # Retrieve the authenticated doctor user
     doctor = request.user
@@ -92,11 +95,31 @@ def doctor_dashboard(request):
 
 
 @login_required
+@user_passes_test(is_patient, login_url='login')
 def patient_dashboard(request):
     patient = request.user
+    medical_records = MedicalHistory.objects.filter(patient=patient)
     context = {
         'patient': patient,
-        #'patients': patients,
+        'medical_records':medical_records
     }
 
     return render(request, 'patient_dashboard.html', context)
+
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        print('Post Request:', request.POST) 
+        print('File Request:', request.FILES)
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            user = request.user
+            if user.user_type == 'doctor':
+                return redirect('doctor_dashboard')
+            else:
+                return redirect('patient_dashboard')
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'update_profile.html', {'form': form})

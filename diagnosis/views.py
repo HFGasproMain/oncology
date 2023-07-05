@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from .models import CancerType, Symptom, Treatment, TestResult, Patients
-from .utils import calculate_accuracy
-from .forms import SymptomForm
+from .utils import calculate_accuracy, is_doctor, is_patient
+from .forms import SymptomForm, TreatmentForm, CancerTypeForm, AddSymptomForm
 #import pyttsx3
 from gtts import gTTS
 from django.http import FileResponse
@@ -15,7 +15,9 @@ import os
 
 
 # All Views@login_required
+
 @login_required
+@user_passes_test(is_patient, login_url='login')
 def diagnosis(request):
     if request.method == 'POST':
         form = SymptomForm(request.POST)
@@ -92,6 +94,8 @@ def diagnosis(request):
     return render(request, 'enter_symptoms.html', {'form': form})
 
 
+@login_required
+@user_passes_test(is_patient, login_url='login')
 def test_results(request):
     test_results = TestResult.objects.filter(patient=request.user)
     return render(request, 'test_results.html', {'test_results': test_results})
@@ -114,7 +118,8 @@ def test_results(request):
 #         return response
 
 
-
+@login_required
+@user_passes_test(is_patient, login_url='login')
 def read_diagnosis(request, pk):
     test_result = TestResult.objects.get(id=pk)
     diagnosis = test_result.diagnosis_report
@@ -149,6 +154,7 @@ def cancer_types(request):
         cancer_types = CancerType.objects.filter(user=user)
         return render(request, 'cancer_types.html', {'cancer_types': cancer_types})
 
+
 @login_required
 def symptoms(request):
     user = request.user
@@ -178,3 +184,46 @@ def patients(request):
     user = request.user
     patients = Patients.objects.filter(user=user)
     return render(request, 'patients.html', {'patients': patients})
+
+
+@login_required
+@user_passes_test(is_doctor, login_url='login')
+def add_symptom(request):
+    if request.method == 'POST':
+        form = AddSymptomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('doctor_dashboard')
+    else:
+        form = AddSymptomForm()
+    
+    return render(request, 'add_symptom.html', {'form': form})
+
+
+@login_required
+@user_passes_test(is_doctor, login_url='login')
+def add_treatment(request):
+    if request.method == 'POST':
+        form = TreatmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('doctor_dashboard') 
+    else:
+        form = TreatmentForm()
+    
+    return render(request, 'add_treatment.html', {'form': form})
+
+
+
+@login_required
+@user_passes_test(is_doctor, login_url='login')
+def add_cancer_type(request):
+    if request.method == 'POST':
+        form = CancerTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('doctor_dashboard') 
+    else:
+        form = CancerTypeForm()
+    
+    return render(request, 'add_cancer_type.html', {'form': form})
