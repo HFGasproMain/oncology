@@ -48,7 +48,7 @@
     <div id="" class="error-page">
         
         <hr>
-        <div class="error-bo">
+        <div class="error-bo" style="height:500px;">
             <div class="error-body text-center">
                 <h2 class="text-danger">WELCOME TO THE ONCOLOGY EXPERT SYSTEM (TOES)</h2> <hr>
                  <p class=" m-t-30 m-b-30">Oncology is a branch of medicine that deals with the study, treatment, diagnosis and prevention of tumors.</p>
@@ -61,7 +61,8 @@
                     <p class="card-text">
                      My name is toes. I am an expert system designed to mimic the problem-solving abilities of a human expert in oncology. <br> You can count on me as I've been trained with the best performing models by oncology experts.</p>
                     <a href="{% url 'login' %}" class="btn btn-danger btn-rounded waves-effect waves-light m-b-40">Begin Diagnosis</a>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <hr>
+                    <a href="{% url 'doctor_registration' %}" class="btn btn-success">Register as a doctor</a> 
                   </div>
                 </div>
 
