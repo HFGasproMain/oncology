@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CancerType, Symptom, Treatment, Patients, TestResult
+from .models import CancerType, Symptom, Treatment, Patients, TestResult, PatientDiagnosis
 
 # Register your models here.
 #admin.site.register(CancerType)
@@ -19,3 +19,4 @@ admin.site.register(Treatment)
 admin.site.register(Symptom)
 admin.site.register(Patients)
 admin.site.register(TestResult)
+admin.site.register(PatientDiagnosis)

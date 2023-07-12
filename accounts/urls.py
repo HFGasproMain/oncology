@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import index, home, doctor_registration, patient_registration, user_login, doctor_dashboard, \
-    patient_dashboard, about_us, update_profile
+    patient_dashboard, about_us, update_profile, doctor_update_profile
 from django.contrib.auth import views as auth_views
 from .forms import LoginForm
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('patient-dashboard/', patient_dashboard, name='patient_dashboard'),
     path('about-us/', about_us, name='about_us'),
     path('profile/update/', update_profile, name='update_profile'),
+    path('doctor-profile/update/', doctor_update_profile, name='doctor_update_profile'),
 ]

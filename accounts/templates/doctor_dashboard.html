@@ -19,6 +19,9 @@
                         <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>
                     <li>
+                        <a href="{% url 'doctor_update_profile' %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Update profile</a>
+                    </li>
+                    <li>
                         <a href="{% url 'add_cancer_type' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Enter Cancer Type</a>
                     </li>
                 
@@ -26,10 +29,13 @@
                         <a href="{% url 'add_symptom' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Enter Symptom</a>
                     </li>
                     <li>
-                        <a href="{% url 'view_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>View Patients Medical Records</a>  
+                        <a href="{% url 'view_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>View Patients Records</a>  
                     </li>
                     <li>
                         <a href="{% url 'patient_questions' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Patients Questions</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'patient_diagnosis' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Patients Diagnosis</a>
                     </li>
 
                 </ul>
@@ -129,6 +135,37 @@
                     </div>
                 </div>
                 <!-- /.row -->
+                <div class="row">
+                    <div class="12">
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Patient</th>
+                              <th>Cancer Type</th>
+                              <th>Stage</th>
+                              <th>Recommendation</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for diagnosis in patient_diagnoses %}
+                              <tr>
+                                <td>{{ diagnosis.patient }}</td>
+                                <td>{{ diagnosis.cancer_type }}</td>
+                                <td>{{ diagnosis.stage }}</td>
+                                <td>
+                                  {% if diagnosis.stage == 1 %}
+                                    <a href="{% url 'patient_diagnoses' diagnosis.id %}" class="btn btn-primary">Provide Recommendation</a>
+                                  {% else %}
+                                    <span>No Recommendation</span>
+                                  {% endif %}
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
             <!-- /.container-fluid -->
             

@@ -55,26 +55,50 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Medical records page</h4> </div>
+                        <h4 class="page-title">Medical questions page</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
-                            <li class="active">Respond to question</li>
+                            <li class="active">View question</li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
                 <!-- .row -->
                 <div class="row">
-                    <div class="col-2"></div>
-                    <h2>Respond to Question</h2>
-                        <h4>Question:</h4>
-                        <p>{{ question.question }}</p>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <button type="submit" class="btn btn-success">Click to Respond</button>
-                        </form>
+                <div class="col-2"></div>
+                <h2>List of Patient Diagnosis</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Patient</th>
+                            <th>Cancer Type</th>
+                            <!-- <th>Date</th> -->
+                            <th>Stage</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for diagnosis in patient_diagnosis %}
+                          <tr>
+                            <td>
+                              <img src="{{ diagnosis.patient.photo.url }}" alt="Patient Photo" width="35px" height="35px" class="img-thumbnail">
+                              {{ diagnosis.patient.first_name }} {{ diagnosis.patient.last_name }}
+                            </td>
+                            <td>{{ diagnosis.cancer_type }}</td>
+                            <!-- <td>{{ diagnosis.date_created }}</td> -->
+                            <td>{{ diagnosis.stage }}</td>
+                            <td>
+                                
+                                  <a href="{% url 'provide_recommendation' diagnosis_id=diagnosis.id %}" class="btn btn-success">Make recommendations</a>
+                                                                  
+                            </td>
+                                
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+
                 <!-- Pagination -->
                 
                     <div class="pagination">

@@ -14,7 +14,7 @@
                         <span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">TOES</span>
                     </h3>
                 </div>
-                <ul class="nav" id="side-menu">
+               <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;">
                         <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>
@@ -39,67 +39,63 @@
                     </li>
 
                 </ul>
-                <div class="center p-20">
-                     <a href="{% url 'logout' %}" target="" class="btn btn-danger btn-block waves-effect waves-light">Logout</a>
-                 </div>
             </div>
         </div>
         <!-- ============================================================== -->
         <!-- End Left Sidebar -->
         <!-- ============================================================== -->
-
         <!-- ============================================================== -->
-        <!-- Page Content --> 
+        <!-- Page Content -->
         <!-- ============================================================== -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Medical records page</h4> </div>
+                        <h4 class="page-title">Cancer recommendation</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
-                            <li class="active">Respond to question</li>
+                            <li class="active">Recommendation Page</li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
                 <!-- .row -->
                 <div class="row">
-                    <div class="col-2"></div>
-                    <h2>Respond to Question</h2>
-                        <h4>Question:</h4>
-                        <p>{{ question.question }}</p>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <button type="submit" class="btn btn-success">Click to Respond</button>
-                        </form>
-                <!-- Pagination -->
-                
-                    <div class="pagination">
-                        {% if symptoms.has_previous %}
-                            <a href="?page=1">&laquo; First</a>
-                            <a href="?page={{ symptoms.previous_page_number }}">Previous</a>
-                        {% endif %}
-
-                        {% for num in symptoms.paginator.page_range %}
-                            {% if num == symptoms.number %}
-                                <span class="page-current">{{ num }}</span>
-                            {% else %}
-                                <a href="?page={{ num }}">{{ num }}</a>
-                            {% endif %}
-                        {% endfor %}
-
-                        {% if symptoms.has_next %}
-                            <a href="?page={{ symptoms.next_page_number }}">Next</a>
-                            <a href="?page={{ symptoms.paginator.num_pages }}">Last &raquo;</a>
-                        {% endif %}
+                    <div class="col-md-4 col-xs-12">
+                        <div class="white-box">
+                            <div class="user-bg"> 
+                                <div class="overlay-box">
+                                    <div class="user-content">
+                                        <a href="#"><img src="{{ user.photo.url }}" class="thumb-lg img-circle" alt="img"></a>
+                                        <h4 class="text-white">{{ user}}</h4>
+                                        <h5 class="text-white">{{ user.email }}</h5> </div>
+                                </div>
+                            </div>
+                            <div class="user-btm-box">
+                                <div class="col-md-12 col-sm-4 text-center">
+                                    <p class="text-purple"><i class="ti-facebook"></i></p>
+                                    <h2>Designation: {{ user.user_type }}</h2> 
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!-- End Pagination -->
+                    <div class="col-md-8 col-xs-12">
+                        <div class="white-box"> 
+							<h1>Provide Recommendation for {{ diagnosis.cancer_type }}</h1> <hr>
 
-                    
+							<p>Patient: {{ diagnosis.patient }}</p>
+							<p>Stage: {{ diagnosis.stage }}</p>
+
+							<form method="POST" action="{% url 'provide_recommendation' diagnosis.id %}">
+							  {% csrf_token %}
+							  <label for="recommendation">Recommendation:</label>
+							  <textarea name="recommendation" id="recommendation" rows="4" cols="50">{{ diagnosis.recommendation }}</textarea>
+							  <br><hr>
+							  <button type="submit" class="btn btn-primary">Save Recommendation</button>
+							</form>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.row -->
             </div>

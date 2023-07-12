@@ -19,19 +19,21 @@
                         <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="{% url 'add_cancer_type' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Enter Cancer Type</a>
+                        <a href="{% url 'start-diagnosis' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Begin diagnosis</a>
                     </li>
                 
                     <li>
-                        <a href="{% url 'add_symptom' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Enter Symptom</a> 
+                        <a href="{% url 'test-results' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Test Results</a>
                     </li>
                     <li>
-                        <a href="{% url 'view_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>View Patients Medical Records</a>  
+                        <a href="{% url 'add_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Add medical records</a> 
+                    </li>
+                    <li>
+                        <a href="{% url 'ask_question' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Ask a question</a>  
                     </li>
                     <li>
                         <a href="{% url 'my_questions' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>My Questions</a>
                     </li>
-
                 </ul>
                 <div class="center p-20">
                      <a href="{% url 'logout' %}" target="" class="btn btn-danger btn-block waves-effect waves-light">Logout</a>

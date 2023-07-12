@@ -19,8 +19,9 @@
                         <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="{% url 'start-diagnosis' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Diagnosis</a>
+                        <a href="{% url 'start-diagnosis' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Begin diagnosis</a>
                     </li>
+                
                     <li>
                         <a href="{% url 'test-results' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Test Results</a>
                     </li>

@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib.auth import login, authenticate
-from .forms import DoctorRegistrationForm, PatientRegistrationForm, UserProfileForm
+from .forms import DoctorRegistrationForm, PatientRegistrationForm, UserProfileForm, DoctorProfileForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from diagnosis.utils import is_patient, is_doctor
 from medical_records.models import MedicalHistory
+from diagnosis.models import PatientDiagnosis
 
 # All views here
 def index(request):
     return redirect('home')
+
 
 def home(request):
     if request.user.is_authenticated:
@@ -85,8 +87,10 @@ def user_login(request):
 def doctor_dashboard(request):
     # Retrieve the authenticated doctor user
     doctor = request.user
+    patient_diagnosis = PatientDiagnosis.objects.all()
     context = {
         'doctor': doctor,
+        'patient_diagnosis':patient_diagnosis
         #'patients': patients,
     }
 
@@ -99,9 +103,11 @@ def doctor_dashboard(request):
 def patient_dashboard(request):
     patient = request.user
     medical_records = MedicalHistory.objects.filter(patient=patient)
+    patient_diagnoses = PatientDiagnosis.objects.filter(patient=patient)
     context = {
         'patient': patient,
-        'medical_records':medical_records
+        'medical_records':medical_records,
+        'patient_diagnoses': patient_diagnoses
     }
 
     return render(request, 'patient_dashboard.html', context)
@@ -123,3 +129,17 @@ def update_profile(request):
     else:
         form = UserProfileForm(instance=request.user)
     return render(request, 'update_profile.html', {'form': form})
+
+
+
+@login_required
+def doctor_update_profile(request):
+    if request.method == 'POST':
+        print('Post Request:', request.POST) 
+        print('File Request:', request.FILES)
+        form = DoctorProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = DoctorProfileForm(instance=request.user)
+    return render(request, 'doctor_update_profile.html', {'form': form})

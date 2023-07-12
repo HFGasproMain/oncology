@@ -166,6 +166,40 @@
                           {% endfor %}
                         </tbody>
                     </table>
+                </div> <hr>
+                <!-- Doctor's recommendations -->
+                <div class="row">
+                    <h2>Doctor's Recommendations</h2>
+                    <table class="table table-bordered white-box" style="background-color: #f2f2f;">
+                        <thead>
+                          <tr>
+                            <th>Cancer type</th>
+                            <th>Stage</th>
+                            <th>Date created</th>
+                            <th>Doc Recommendation</th>
+                            <!-- <th>Date registered</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for record in patient_diagnoses %}
+                          <tr>
+                            <td>
+                             {{ record.cancer_type }}
+                            </td>
+                            <td>{{ record.stage }}</td>
+                            <td>
+                              {{ record.date_created }}
+                            </td>
+                            <td>
+                              {{ record.recommendation }}
+                            </td>
+<!--                             <td>                                    
+                                {{ record.date_created }}
+                            </td> -->
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- /.container-fluid -->

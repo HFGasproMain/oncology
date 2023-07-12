@@ -14,9 +14,12 @@
                         <span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">TOES</span>
                     </h3>
                 </div>
-                <ul class="nav" id="side-menu">
+                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;">
                         <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'doctor_update_profile' %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Update profile</a>
                     </li>
                     <li>
                         <a href="{% url 'add_cancer_type' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Enter Cancer Type</a>
@@ -26,13 +29,13 @@
                         <a href="{% url 'add_symptom' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Enter Symptom</a>
                     </li>
                     <li>
-                        <a href="{% url 'add_treatment' %}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Add Treatments</a>
+                        <a href="{% url 'view_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>View Patients Records</a>  
                     </li>
                     <li>
-                        <a href="{% url 'view_medical_history' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>View Patients Medical Records</a>  
-                    </li>
-                     <li>
                         <a href="{% url 'patient_questions' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Patients Questions</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'patient_diagnosis' %}" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Patients Diagnosis</a>
                     </li>
 
                 </ul>

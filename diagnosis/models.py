@@ -39,6 +39,18 @@ class Patients(models.Model):
 		return '{},{}'.format(self.user, self.test_results)
 
 
+class PatientDiagnosis(models.Model):
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_diagnosis')
+    accuracy = models.FloatField()
+    cancer_type = models.CharField(max_length=100)
+    stage = models.IntegerField()
+    recommendation = models.TextField(null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Diagnosis for {self.patient} - CancerType {self.cancer_type} at Stage {self.stage}"
+
+
 
 class TestResult(models.Model):
     name = models.CharField(max_length=100)

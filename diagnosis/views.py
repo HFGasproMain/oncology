@@ -3,8 +3,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 
-from .models import CancerType, Symptom, Treatment, TestResult, Patients
+from .models import CancerType, Symptom, Treatment, TestResult, Patients, PatientDiagnosis
 from .utils import calculate_accuracy, is_doctor, is_patient
 from .forms import SymptomForm, TreatmentForm, CancerTypeForm, AddSymptomForm
 #import pyttsx3
@@ -15,7 +16,6 @@ import os
 
 
 # All Views@login_required
-
 @login_required
 @user_passes_test(is_patient, login_url='login')
 def diagnosis(request):
@@ -36,6 +36,7 @@ def diagnosis(request):
 
                 num_matched_symptoms = matched_symptoms.count()
                 num_total_symptoms = cancer_type.symptoms.count()
+                print(f'matched symptoms = {num_matched_symptoms} vs total_symptoms {num_total_symptoms}')
 
                 if num_total_symptoms > 0:
                     accuracy_scores[cancer_type] = (num_matched_symptoms / num_total_symptoms) * 100
@@ -56,8 +57,11 @@ def diagnosis(request):
                     'accuracy_score': accuracy_scores[cancer_type],
                 })
 
+
+
             diagnosis_results.sort(key=lambda x: x['accuracy_score'], reverse=True)
             top_diagnosis = diagnosis_results[0] if diagnosis_results else None
+            print(f'Top Diagnosis => {top_diagnosis}')
 
             # Create a dictionary to store unique diagnoses
             unique_diagnoses = []
@@ -73,6 +77,28 @@ def diagnosis(request):
                         'accuracy_score': accuracy_score,
                     })
 
+            
+            accuracy = top_diagnosis['accuracy_score']
+            print(f'accuracy to be saved => {accuracy}')
+            stage = 0  # Initialize the stage
+
+            if accuracy >= 75:
+                stage = 4
+            elif accuracy >= 50:
+                stage = 3
+            elif accuracy >= 25:
+                stage = 2
+            else:
+                stage = 1
+
+
+            # Save the diagnosis information to the database
+            diagnosis = PatientDiagnosis(accuracy=top_diagnosis['accuracy_score'], patient=request.user, 
+                cancer_type=top_diagnosis['cancer_type'].name, stage=stage)
+            diagnosis.save()
+            print(f'Diagnosis for {request.user} is {diagnosis}')
+
+            # Test Result
             test_result = TestResult.objects.create(
                 name=top_diagnosis['cancer_type'].name,
                 accuracy=top_diagnosis['accuracy_score'],
@@ -87,6 +113,7 @@ def diagnosis(request):
                 'diagnosis_results': unique_diagnoses,
                 'top_diagnosis': top_diagnosis,
                 'treatments': treatments,
+                'test_result':test_result
             }
             return render(request, 'diagnosis.html', ctx)
     else:
@@ -167,6 +194,7 @@ def symptoms(request):
         symptoms = Symptom.objects.filter(user=user)
         return render(request, 'symptoms.html', {'symptoms': symptoms})
 
+
 @login_required
 def treatments(request):
     user = request.user
@@ -178,6 +206,7 @@ def treatments(request):
     else:
         treatments = Treatment.objects.filter(user=user)
         return render(request, 'treatments.html', {'treatments': treatments})
+
 
 @login_required
 def patients(request):
@@ -227,3 +256,18 @@ def add_cancer_type(request):
         form = CancerTypeForm()
     
     return render(request, 'add_cancer_type.html', {'form': form})
+
+
+def provide_recommendation(request, diagnosis_id):
+    diagnosis = get_object_or_404(PatientDiagnosis, id=diagnosis_id)
+
+    if request.method == 'POST':
+        recommendation = request.POST.get('recommendation')
+        diagnosis.recommendation = recommendation
+        diagnosis.save()
+        return redirect('doctor_dashboard')
+
+    context = {
+        'diagnosis': diagnosis,
+    }
+    return render(request, 'provide_recommendation.html', context)

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import diagnosis, read_diagnosis, test_results, add_symptom, add_cancer_type, add_treatment
+from .views import diagnosis, read_diagnosis, test_results, add_symptom, add_cancer_type, add_treatment, provide_recommendation
 
 urlpatterns = [
 	path('diagnosis/', diagnosis, name='start-diagnosis'),
@@ -8,4 +8,5 @@ urlpatterns = [
 	path('add-symptom/', add_symptom, name='add_symptom'),
 	path('add-treatment/', add_treatment, name='add_treatment'),
     path('add-cancer-type/', add_cancer_type, name='add_cancer_type'),
+    path('provide_recommendation/<int:diagnosis_id>/', provide_recommendation, name='provide_recommendation'),
 ]

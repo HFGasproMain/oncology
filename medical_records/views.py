@@ -3,6 +3,7 @@ from .forms import MedicalHistoryForm, PatientQuestionForm, RespondToQuestionFor
 from django.contrib.auth.decorators import login_required, user_passes_test
 from diagnosis.utils import is_patient, is_doctor
 from .models import MedicalHistory, PatientQuestion, DoctorResponse
+from diagnosis.models import PatientDiagnosis
 
 # Create your views here.
 
@@ -61,6 +62,14 @@ def my_medical_history(request):
 def view_patient_questions(request):
     questions = PatientQuestion.objects.all()
     return render(request, 'view_patient_questions.html', {'questions': questions})
+
+
+@login_required
+@user_passes_test(is_doctor, login_url='login')
+def view_patient_diagnosis(request):
+    patient_diagnosis = PatientDiagnosis.objects.all()
+    return render(request, 'view_patients_diagnosis.html', {'patient_diagnosis': patient_diagnosis})
+
 
 
 @login_required
