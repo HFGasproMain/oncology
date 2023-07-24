@@ -50,12 +50,13 @@ class DoctorProfileForm(UserChangeForm):
     ]
 
     specialty = forms.CharField(max_length=100)
-    experience_years = forms.IntegerField()
+    #experience_years = forms.IntegerField()
     current_employment = forms.ChoiceField(choices=EMPLOYMENT_CHOICES)
-    certifications = forms.CharField(max_length=200)
+    #certifications = forms.CharField(max_length=200)
     medical_license_number = forms.CharField(max_length=20)
     nationality = forms.CharField()
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'phone_number', 'email_address', 'state', 'address', 'photo')
+        fields = ('username', 'first_name', 'last_name', 'phone_number', 'email_address', 'state', 'address', 'photo', 'specialty', \
+         'years_of_experience', 'current_employment', 'professional_certifications', 'medical_license_number', 'nationality')

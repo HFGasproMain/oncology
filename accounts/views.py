@@ -131,7 +131,6 @@ def update_profile(request):
     return render(request, 'update_profile.html', {'form': form})
 
 
-
 @login_required
 def doctor_update_profile(request):
     if request.method == 'POST':

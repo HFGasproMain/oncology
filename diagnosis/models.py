@@ -50,6 +50,9 @@ class PatientDiagnosis(models.Model):
     def __str__(self):
         return f"Diagnosis for {self.patient} - CancerType {self.cancer_type} at Stage {self.stage}"
 
+    class Meta:
+        ordering = ('-date_created',)
+
 
 
 class TestResult(models.Model):

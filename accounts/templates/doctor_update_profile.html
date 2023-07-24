@@ -14,7 +14,7 @@
                         <span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">TOES</span>
                     </h3>
                 </div>
-<ul class="nav" id="side-menu">
+                <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;">
                         <a href="{% if user.user_type == 'patient' %} {% url 'patient_dashboard' %} {% else %} {% url 'doctor_dashboard' %} {% endif %}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                     </li>

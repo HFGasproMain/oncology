@@ -107,6 +107,48 @@
                                         <input type="text" placeholder="{{ user.state }}" readonly class="form-control form-control-line"> </div>
                                 </div>
 
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Medical degree</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="{{ user.medical_degree }}" readonly class="form-control form-control-line"> </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Specialty</label> 
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="{{ user.specialty }}" readonly class="form-control form-control-line"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Medical license number</label> 
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="{{ user.medical_license_number }}" readonly class="form-control form-control-line"> </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Years of experience</label> 
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="{{ user.years_of_experience }}" readonly class="form-control form-control-line"> </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Current employment</label> 
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="{{ user.current_employment }}" readonly class="form-control form-control-line"> </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Clinic affiliation</label> 
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="{{ user.clinic_affiliation }}" readonly class="form-control form-control-line"> </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Professional certifications</label> 
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="{{ user.professional_certifications }}" readonly class="form-control form-control-line"> </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-md-12">Address</label>
                                     <div class="col-md-12">
@@ -127,7 +169,7 @@
                                 </div> -->
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <a href="{% url 'update_profile' %}" class="btn btn-success">Click To Update Profile</a>
+                                        <a href="{% url 'doctor_update_profile' %}" class="btn btn-success">Click To Update Profile</a>
                                     </div>
                                 </div>
                             </form>
