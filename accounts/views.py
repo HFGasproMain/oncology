@@ -42,7 +42,7 @@ def doctor_registration(request):
             # Log the user in
             user = authenticate(request, username=user.username, password=form.cleaned_data['password1'])
             login(request, user)
-            return redirect('doctor_home')
+            return redirect('doctor_dashboard')
     else:
         form = DoctorRegistrationForm()
     return render(request, 'accounts/doctor_registration.html', {'form': form})
